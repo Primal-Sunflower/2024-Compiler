@@ -10,36 +10,6 @@ import java.util.Scanner;
 import java.util.StringJoiner;
 
 public class IO {
-
-    //    public static String read(String filePath) throws IOException {
-//        StringBuilder content = new StringBuilder();
-//
-//        // 使用 FileReader 逐字符读取
-//        try (FileReader reader = new FileReader(filePath)) {
-//            int character;
-//            boolean lastWasCR = false;
-//
-//            while ((character = reader.read()) != -1) {
-//                // 处理 Windows 的 \r\n 换行符，避免重复添加 \r
-//                if (character == '\r') {
-//                    content.append("\r");
-//                    lastWasCR = true;  // 标记读取到了 \r
-//                } else {
-//                    if (character == '\n') {
-//                        if (lastWasCR) {
-//                            content.append("\n");  // 如果上一个字符是 \r，添加完整的 \r\n
-//                        } else {
-//                            content.append("\n");  // 如果上一个不是 \r，则添加 \n
-//                        }
-//                    } else {
-//                        content.append((char) character);  // 普通字符直接追加
-//                    }
-//                    lastWasCR = false;  // 重置标记
-//                }
-//            }
-//        }
-//        return content.toString();
-//    }
     public static String read(String filePath) throws IOException {
         StringBuilder content = new StringBuilder();
 
