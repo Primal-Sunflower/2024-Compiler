@@ -28,16 +28,21 @@ public class IO {
         }
     }
 
-    public static void writeRight(String filePath, TokenType type, String content) throws IOException {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath, true))) {
-            bufferedWriter.write(String.format("%s %s\n", type, content));
+    public static void writeLexer(String content) throws IOException {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("lexer.txt", true))) {
+            bufferedWriter.write(content+'\n');
+        }
+    }
+
+    public static void writeParser(String content) throws IOException {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("parser.txt", true))) {
+            bufferedWriter.write(content+'\n');
         }
     }
 
     public static void clearFiles(String... filePaths) {
         for (String filePath : filePaths) {
             try (FileWriter fileWriter = new FileWriter(filePath, false)) {
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

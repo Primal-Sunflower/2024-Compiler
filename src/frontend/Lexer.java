@@ -15,8 +15,16 @@ import static error.Error.error;
 import static utils.IO.*;
 
 public class Lexer {
+    private static final Lexer instance = new Lexer(); //只需要创建一个对象，采用单例模式
+    public static Lexer getInstance() {
+        return instance;
+    }
+
     private boolean haveError = false;
     private List<Token> tokens = new ArrayList<>();
+    public List<Token> getToken() {
+        return tokens;
+    }
 
     private final HashMap<String, TokenType> reserved = new HashMap<>(); //保留字的map
     private StringBuilder tmp_token = new StringBuilder(); //临时存放每一个分析出来的token
@@ -26,7 +34,6 @@ public class Lexer {
 
         int i = 0, lineNumber = 1;
         String input = read("testfile.txt");
-        System.out.println(input.length());
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("test.txt"))) {
             bufferedWriter.write(input);
         }
@@ -39,8 +46,6 @@ public class Lexer {
                     lineNumber++;
                 i++;
             }
-
-            System.out.println("这是第" + lineNumber + "行");
 
             if (i < input.length()) { //一定要有这个判断，否则可能会溢出
                 if (input.charAt(i) == '_' || Character.isLetter(input.charAt(i))) { //是标识符或者保留字，注意下划线
@@ -96,6 +101,7 @@ public class Lexer {
                     } else {
                         error(lineNumber, ErrorType.a);
                         haveError = true;
+                        tokens.add(new Token(TokenType.AND,"&&",lineNumber));
                     }
                 } else if (input.charAt(i) == '|') {
                     i++;
@@ -105,6 +111,7 @@ public class Lexer {
                     } else {
                         error(lineNumber, ErrorType.a);
                         haveError = true;
+                        tokens.add(new Token(TokenType.OR,"||",lineNumber));
                     }
                 } else if (input.charAt(i) == '+') {
                     i++;
@@ -226,7 +233,7 @@ public class Lexer {
     public void print_lexer_result() throws IOException {
         if (!haveError) {
             for (Token t : tokens) { //foreach遍历输出结果
-                writeRight("lexer.txt", t.type, t.content);
+                writeLexer(t.toString());
             }
         }
     }

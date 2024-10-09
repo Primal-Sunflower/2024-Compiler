@@ -10,4 +10,8 @@ public class Token {
         this.content = content;
         this.lineNumber = lineNumber;
     }
+
+    public String toString() {
+        return this.type + " " + this.content;
+    }
 }
